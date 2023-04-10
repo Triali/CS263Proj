@@ -56,10 +56,10 @@ Graph Interpreter::makeGraph()
                 // get the rule name
                 string rulename = toRule.at(0).getName();
 //                cout << predName << ":: " << rulename << endl;
-                if(rulename == predName)
+                if (rulename == predName)
                 {
 //                    cout << "dependency found: (R" << fromID << ",R" << toID << ")" << endl;
-                    graph.addEdge(fromID,toID);
+                    graph.addEdge(fromID, toID);
                 }
             }
         }
@@ -103,11 +103,11 @@ Graph Interpreter::makeReverseGraph()
                 // get the rule name
                 string rulename = toRule.at(0).getName();
 //                cout << predName << ":: " << rulename << endl;
-                if(rulename == predName)
+                if (rulename == predName)
                 {
 //                    cout << "dependency found: (R" << f
 //                    .romID << ",R" << toID << ")" << endl;
-                    graph.addEdge(toID,fromID);
+                    graph.addEdge(toID, fromID);
                 }
             }
         }
@@ -129,11 +129,20 @@ string Interpreter::interpreteGraph()
     Graph revGraph = makeReverseGraph();
     out << revGraph.toString() << endl;
 
-    
-
-
-
     return out.str();
 
 }
+
+//vector<int> Interpreter::DFSF(Graph graph)
+//{
+//    vector<int> nodeOrder;
+//    // recursively call children of eah node to print their children
+//    // move to next lowest when done
+//    for (int i = 0, i<graph.size(), i++)
+//    {
+//        if
+//    }
+//}
+
+
 

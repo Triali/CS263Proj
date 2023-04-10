@@ -28,6 +28,11 @@ public:
     // return ID : adjacent nodes
     // ie R1:R2,R3,R4
 
+    int size();
+    // returns size of map
+
+    set<int> getAvailableNodes(int nodeID);
+    // returns a set of integers of the nodes adjacent to the given ID that have not been visited
 };
 
 

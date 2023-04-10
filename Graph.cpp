@@ -34,5 +34,36 @@ string Graph::toString()
     }
 
 
+
+
     return out.str();
+}
+int Graph::size()
+{
+    return nodes.size();
+}
+
+set<int> Graph::getAvailableNodes(int nodeID)
+{
+    set<int> availNodes;
+    // create an empty set of node ids
+    Node* node = &nodes.find(nodeID)->second;
+    // find the specific node referenced in fuction call
+    set<int> adjNodes = node->getAdjacentNodeIDs();
+    // get set of adj node from called node
+
+    // for each id in that set
+    for(auto& ID : adjNodes)
+    {
+        Node* adjNode = &nodes.find(ID)->second;
+
+        //check if it has been visited
+        if(!adjNode->isVisited())
+        {
+            // if it has not been visited, add to empty set
+            availNodes.insert(ID);
+        }
+    }
+
+    return availNodes;
 }

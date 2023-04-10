@@ -41,6 +41,11 @@ public:
     // returns a string of the ids of the adjacent nodes
     //ei R1,R2,R4 etc
 
+    bool isVisited();
+
+    set<int> getAdjacentNodeIDs();
+
+
 };
 
 #endif //CS236PROJ_NODE_H
