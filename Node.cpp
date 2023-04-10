@@ -4,6 +4,13 @@
 
 #include "Node.h"
 
+Node::Node()
+{
+    nodeID = -1;
+    visited = false;
+}
+
+
 void Node::addEdge(int adjacentNodeID)
 {
     adjacentNodeIDs.insert(adjacentNodeID);
@@ -23,7 +30,7 @@ string Node::adjNodetoString()
         if(count != static_cast<int>(adjacentNodeIDs.size() -1))
         // is count at the last postion in the set?
         {
-            out << ",";
+            out << " ";
         }
         count++;
         //increase count

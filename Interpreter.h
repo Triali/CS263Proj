@@ -25,8 +25,15 @@ public:
     //create a database, ises process of lab 4
     //process rules and queries
 
-    static Graph makeGraph(const vector<Rule>& rules);
+    Graph makeGraph();
     //returns a Graph that represents the dependencies between the rules
+
+    Graph makeReverseGraph();
+    // creates the reverse dependencies graph
+
+
+    string interpreteGraph();
+    // interprete rules using a graph
 
 };
 

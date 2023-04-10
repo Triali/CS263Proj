@@ -22,7 +22,7 @@ private:
     // stores a set of adjacency nodes(nodes you can travel to in one step)
     // each node in this set represents an
 
-//    bool visited;
+    bool visited;
     //has this nod been visited
 
     // int postOrderNumber;
@@ -30,6 +30,9 @@ private:
 
 
 public:
+
+    Node();
+    // sets id to -1, visited to false
 
     void addEdge(int adjacentNodeID);
     // adds an edge(node ID) to adjacent nodes vector
