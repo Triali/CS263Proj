@@ -50,3 +50,7 @@ set<int> Node::getAdjacentNodeIDs()
     return adjacentNodeIDs;
 }
 
+void Node::Visited()
+{
+    visited = true;
+}

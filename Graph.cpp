@@ -4,10 +4,16 @@
 
 #include "Graph.h"
 
+
 Graph::Graph(int size)
 {
     for (int nodeID = 0; nodeID < size; nodeID++)
         nodes[nodeID] = Node();
+}
+
+Node *Graph::getNode(int ID)
+{
+    return &nodes.find(ID)->second;
 }
 
 void Graph::addEdge(int fromNodeID, int toNodeID)
@@ -34,36 +40,78 @@ string Graph::toString()
     }
 
 
-
-
     return out.str();
 }
+
 int Graph::size()
 {
     return nodes.size();
 }
 
-set<int> Graph::getAvailableNodes(int nodeID)
+void Graph::addChildren(int nodeID)
 {
-    set<int> availNodes;
-    // create an empty set of node ids
-    Node* node = &nodes.find(nodeID)->second;
-    // find the specific node referenced in fuction call
-    set<int> adjNodes = node->getAdjacentNodeIDs();
-    // get set of adj node from called node
+    Node *node = &nodes.find(nodeID)->second;
 
-    // for each id in that set
-    for(auto& ID : adjNodes)
+    if (!node->isVisited())
     {
-        Node* adjNode = &nodes.find(ID)->second;
-
-        //check if it has been visited
-        if(!adjNode->isVisited())
+        node->Visited();
+        for (auto &id: node->getAdjacentNodeIDs())
         {
-            // if it has not been visited, add to empty set
-            availNodes.insert(ID);
+            addChildren(id);
         }
+        order.push_back(nodeID);
+//        cout << nodeID << " ";
+    }
+}
+
+vector<int> Graph::getOrder()
+{
+    return order;
+}
+
+string Graph::orderToString()
+{
+    stringstream out;
+    for (int i = 0; i < order.size(); ++i)
+    {
+        out << order.at(i) << " ";
+    }
+    return out.str();
+}
+
+void Graph::setOrder(vector<int> order)
+{
+    this->order = order;
+}
+
+void Graph::addPostOrder(int nodeID, set<int> &scc)
+{
+    Node *node = &nodes.find(nodeID)->second;
+    set<int> adjNodes = node->getAdjacentNodeIDs();
+    // if the node has not been visited
+    if (!node->isVisited())
+    {
+        //mark it as visited
+        node->Visited();
+
+//        for each number in order vector
+        for (int i = 0; i<order.size();i++)
+        {
+
+            int id = order.at(i);
+            //chech if it is in the adjecent nodes
+
+            if(adjNodes.find(id) != adjNodes.end())
+            {
+                // if it is, run addPostOrder on that node
+
+                addPostOrder(id, scc);
+            }
+
+        }
+        //then insert the node into the set
+        scc.insert(nodeID);
+//        cout  << nodeID << "; ";
     }
 
-    return availNodes;
 }

@@ -6,20 +6,28 @@
 #define CS236PROJ_GRAPH_H
 
 #include <map>
+#include <vector>
 #include "Node.h"
+#include <iostream>
+#include <algorithm>
+#include <sstream>
 
 using namespace std;
 class Graph
 {
 private:
 
-    map<int,Node> nodes;
+    map<int, Node> nodes;
+    vector<int> order;
+
 
 public:
 
     Graph(int size);
     // passed the number of nodes to create in the graph.
     // Nodes are then created with node IDs from 0 to size-1
+
+    Node *getNode(int ID);
 
     void addEdge(int fromNodeID, int toNodeID);
     // adds adge from fromNode to toNode
@@ -31,10 +39,19 @@ public:
     int size();
     // returns size of map
 
-    set<int> getAvailableNodes(int nodeID);
-    // returns a set of integers of the nodes adjacent to the given ID that have not been visited
+    void addChildren(int nodeID);
+    //recursively works through the nodes in numerical order
+
+    vector<int> getOrder();
+
+    string orderToString();
+
+    void setOrder(vector<int> order);
+
+    void addPostOrder(int nodeID, set<int>& scc);
+// recurseivly works through the nodes in the precednace order given by order vector;
+
+
 };
-
-
 
 #endif //CS236PROJ_GRAPH_H

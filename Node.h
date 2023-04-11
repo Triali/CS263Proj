@@ -45,7 +45,7 @@ public:
 
     set<int> getAdjacentNodeIDs();
 
-
+    void Visited();
 };
 
 #endif //CS236PROJ_NODE_H

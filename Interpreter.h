@@ -35,7 +35,9 @@ public:
     string interpreteGraph();
     // interprete rules using a graph
 
-//    vector<int> DFSF(Graph graph);
+    vector<int> DFSF(Graph graph);
+
+    vector<set<int>>RDFSF(Graph graph);
 
 };
 
