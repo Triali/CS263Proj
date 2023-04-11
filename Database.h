@@ -47,8 +47,8 @@ public:
     {
         stringstream write;
         write << "Rule Evaluation" << endl;
-        //        cout << "print Database(Datalog C command)" << endl;
-//        cout << toStringRelations();
+                cout << "print Database(Datalog C command)" << endl;
+        cout << toStringRelations();
 // run until the vector of relations does not change does not change
         int iter = 0;
         vector<int> sizes = RelationsSizes();
@@ -60,7 +60,7 @@ public:
             isSameSize = true;
 
 //            cout << "running evaluating rules" << endl;
-            // evaulate each rule once
+//             evaulate each rule once
             for (int i = 0; i < static_cast<int>(rules.size()); ++i)
             {
                 write << rules.at(i).RuleToStringQ() << endl;
@@ -71,7 +71,7 @@ public:
                 int newSize;
                 for (int j = 0; j < static_cast<int>(relations.size()); ++j)
                 {
-                    // finds the right relation
+//                     finds the right relation
                     if (temp.getName() == relations.at(j).getName())
                     {
                         Scheme newScheme = relations.at(j).getScheme();
@@ -91,6 +91,10 @@ public:
                     isSameSize = false;
 
 //                    write << temp.toString();
+                }
+                if(rules.size() == 1)
+                {
+                    isSameSize = true;
                 }
 
 

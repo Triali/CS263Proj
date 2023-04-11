@@ -159,8 +159,12 @@ string Interpreter::interpreteGraph()
             ruleSet.push_back(rules.at(j));
         }
         cout <<ruleSet.size() << endl;
-        out << dB.EvaluateRules(ruleSet);
+        if(ruleSet.size()==1)
+
+            out << dB.EvaluateRules(ruleSet);
+
     }
+    out << dB.ProcessQueries(queries);
 
 
 
