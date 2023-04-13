@@ -73,7 +73,7 @@ vector<int> Graph::getOrder()
 string Graph::orderToString()
 {
     stringstream out;
-    for (int i = 0; i < order.size(); ++i)
+    for (int i = 0; i < static_cast<int>(order.size()); ++i)
     {
         out << order.at(i) << " ";
     }
@@ -96,7 +96,7 @@ void Graph::addPostOrder(int nodeID, set<int> &scc)
         node->Visited();
 
 //        for each number in order vector
-        for (int i = 0; i<order.size();i++)
+        for (int i = 0; i<static_cast<int>(order.size());i++)
         {
 
             int id = order.at(i);

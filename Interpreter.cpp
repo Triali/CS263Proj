@@ -152,7 +152,7 @@ string Interpreter::interpreteGraph()
 //        out << endl;
 //    }
     out << "Rule Evaluation" << endl;
-    for (int i = 0; i < SCC.size(); ++i)
+    for (int i = 0; i < static_cast<int>(SCC.size()); ++i)
     {
         out << "SCC: ";
 //        out << "(Size "<<SCC.at(i).size()<< ")"<< endl;
@@ -252,7 +252,7 @@ vector <set<int>> Interpreter::RDFSF(Graph graph)
     vector<int> revOrder = graph.getOrder();
     vector <set<int>> SCC;
 //    cout << revOrder.size() << endl;
-    for (int i = 0; i < revOrder.size(); i++)
+    for (int i = 0; i < static_cast<int>(revOrder.size()); i++)
     {
 //        cout << revOrder.at(i) << ": ";
         set<int> scc;
