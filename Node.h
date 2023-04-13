@@ -7,6 +7,7 @@
 #include <set>
 #include <string>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 class Node {
@@ -46,6 +47,8 @@ public:
     set<int> getAdjacentNodeIDs();
 
     void Visited();
+
+    bool selfDependant(int ID);
 };
 
 #endif //CS236PROJ_NODE_H

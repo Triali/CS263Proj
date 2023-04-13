@@ -20,6 +20,8 @@ private:
 
     vector<Relation> relations;
 
+    bool isSolo;
+
 
 public:
 //initalizer
@@ -47,8 +49,8 @@ public:
     {
         stringstream write;
         write << "Rule Evaluation" << endl;
-                cout << "print Database(Datalog C command)" << endl;
-        cout << toStringRelations();
+//                cout << "print Database(Datalog C command)" << endl;
+//        cout << toStringRelations();
 // run until the vector of relations does not change does not change
         int iter = 0;
         vector<int> sizes = RelationsSizes();
@@ -441,6 +443,80 @@ public:
         }
         return true;
     }
+
+
+
+    string EvaluateRulesG(vector<Rule> rules,bool solo)
+    {
+        stringstream write;
+//        write << "Rule Evaluation" << endl;
+//                cout << "print Database(Datalog C command)" << endl;
+//        cout << toStringRelations();
+// run until the vector of relations does not change does not change
+        int iter = 0;
+        vector<int> sizes = RelationsSizes();
+
+        bool isSameSize = false;
+        while (!isSameSize)
+        {
+//            cout << "pass: " << iter << endl;
+            isSameSize = true;
+
+//            cout << "running evaluating rules" << endl;
+//             evaulate each rule once
+            for (int i = 0; i < static_cast<int>(rules.size()); ++i)
+            {
+                write << rules.at(i).RuleToStringQ() << endl;
+                //cout << "==================" << endl;
+                Relation temp = evaluateRule(rules.at(i));
+
+                int oldSize;
+                int newSize;
+                for (int j = 0; j < static_cast<int>(relations.size()); ++j)
+                {
+//                     finds the right relation
+                    if (temp.getName() == relations.at(j).getName())
+                    {
+                        Scheme newScheme = relations.at(j).getScheme();
+//                        cout << relations.at(j).getSchemeStr() << endl;
+//cout << "(DB 77) " << endl<< temp.toFullString() << endl;
+                        temp = temp.rename(newScheme);
+                        write << relations.at(j).printNewTuples(temp);
+                        oldSize = relations.at(j).getTupleSize();
+                        Union(temp);
+                        newSize = relations.at(j).getTupleSize();
+                    }
+                }
+
+//                cout << oldSize << "::" << newSize << endl;
+                if (oldSize != newSize)
+                {
+                    isSameSize = false;
+
+//                    write << temp.toString();
+                }
+                if(solo)
+                {
+                    isSameSize = true;
+                }
+
+
+
+            }
+            //repeat until relations and NewRelations are the same size
+            sizes = RelationsSizes();
+            iter++;
+        }
+
+        write << iter << " passes";
+        return write.str();
+    }
+
+    void setSolo(bool solo)
+    {
+        isSolo = solo;
+    }
+
 
 
 };

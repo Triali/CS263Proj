@@ -44,11 +44,11 @@ int main(int argc, char *argv[])
     write << inter.interpreteGraph();
 
 
-    cout << write.str()<< endl;
-//    ofstream outputFile;
-//    outputFile.open("output.txt");
-//    outputFile << write.str();
-//    outputFile.close();
+//    cout << write.str();
+    ofstream outputFile;
+    outputFile.open("output.txt");
+    outputFile << write.str();
+    outputFile.close();
 
 }
 

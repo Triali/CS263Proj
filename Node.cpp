@@ -30,7 +30,7 @@ string Node::adjNodetoString()
         if (count != static_cast<int>(adjacentNodeIDs.size() - 1))
             // is count at the last postion in the set?
         {
-            out << " ";
+            out << ",";
         }
         count++;
         //increase count
@@ -53,4 +53,20 @@ set<int> Node::getAdjacentNodeIDs()
 void Node::Visited()
 {
     visited = true;
+}
+
+bool Node::selfDependant(int ID)
+{
+    cout << "node "<< ID << endl;
+    for (auto &id: adjacentNodeIDs)
+    {
+        cout << id << " ";
+    }
+    cout << ";" << endl;
+   if( adjacentNodeIDs.find(ID) == adjacentNodeIDs.end())
+   {
+       return false;
+   }
+    return true;
+
 }

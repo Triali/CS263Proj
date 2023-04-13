@@ -33,9 +33,10 @@ string Graph::toString()
         // gives tou the node associated with the key
 
         // add ID to string
-        out << "R" << nodeID << ": ";
+        out << "R" << nodeID << ":";
 
         // add adjacent nodes to string
+
         out << node.adjNodetoString() << endl;
     }
 

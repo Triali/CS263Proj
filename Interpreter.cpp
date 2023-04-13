@@ -125,52 +125,107 @@ string Interpreter::interpreteGraph()
 
     Database dB = Database(schemes, facts);
     Graph graph = makeGraph();
-    out << graph.toString() << endl;
+    out << "Dependency Graph" << endl << graph.toString() << endl;
     Graph revGraph = makeReverseGraph();
-    out << revGraph.toString() << endl;
+//    out << revGraph.toString() << endl;
 
-    cout << "running recursion" << endl;
+//    cout << "running recursion" << endl;
     vector<int> order = DFSF(revGraph);
     reverse(order.begin(), order.end());
 
-    for (int i = 0; i < order.size(); ++i)
-    {
-        out << order.at(i) << " ";
-    }
-    cout << endl;
+//    for (int i = 0; i < order.size(); ++i)
+//    {
+//        out << order.at(i) << " ";
+//    }
+//    cout << endl;
     graph.setOrder(order);
     vector <set<int>> SCC = RDFSF(graph);
-    out << endl;
-    out << endl;
-    out << "SCC" << endl;
+//    out << endl;
+//    out << endl;
+//    out << "SCC" << endl;
+//    for (int i = 0; i < SCC.size(); ++i)
+//    {
+//        for (auto &j: SCC.at(i))
+//        {
+//            out << j << " ";
+//        }
+//        out << endl;
+//    }
+    out << "Rule Evaluation" << endl;
     for (int i = 0; i < SCC.size(); ++i)
     {
+        out << "SCC: ";
+//        out << "(Size "<<SCC.at(i).size()<< ")"<< endl;
+        int count = 0;
         for (auto &j: SCC.at(i))
         {
-            out << j << " ";
+            out << "R" << j;
+            // while count is not at the end of the set, add a comma
+            if (count != static_cast<int>(SCC.at(i).size() - 1))
+                // is count at the last postion in the set?
+            {
+                out << ",";
+            }
+            count++;
+            //increase count
         }
-        out << endl;
-    }
-    for (int i = 0; i < SCC.size(); ++i)
-    {
-        vector<Rule> ruleSet;
+//        out << endl;
+        vector <Rule> ruleSet;
         for (auto &j: SCC.at(i))
         {
             ruleSet.push_back(rules.at(j));
         }
-        cout <<ruleSet.size() << endl;
-        if(ruleSet.size()==1)
+        bool solo = false;
+        out << endl;
 
-            out << dB.EvaluateRules(ruleSet);
+
+        if (SCC.at(i).size() == 1)
+        {
+
+//            cout <<endl<< "size 1" << endl;
+            auto it = SCC.at(i).begin();
+//            cout <<i << "::"<< *it<< endl;
+            int id = *it;
+//            cout << graph.getNode(*it)->adjNodetoString()<< endl;
+            set<int> adj = graph.getNode(id)->getAdjacentNodeIDs();
+            if (adj.empty() || adj.find(id) == adj.end())
+            {
+//                cout << "not self dependant"<< endl;
+                solo = true;
+            }
+
+        }
+
+
+//        cout << i << " solo " << solo << endl;
+        out << dB.EvaluateRulesG(ruleSet, solo);
+        out << ": ";
+        count = 0;
+        for (auto &j: SCC.at(i))
+        {
+            out << "R" << j;
+
+            // while count is not at the end of the set, add a comma
+            if (count != static_cast<int>(SCC.at(i).size() - 1))
+                // is count at the last postion in the set?
+            {
+                out << ",";
+            }
+            count++;
+            //increase count
+        }
+
+
+        out << endl;
 
     }
-    out << dB.ProcessQueries(queries);
+    out << endl << dB.ProcessQueries(queries);
 
 
 
 
 
-    out << endl;
+//    out << endl;
 
     return out.str();
 
